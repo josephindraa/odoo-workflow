@@ -1,0 +1,36 @@
+# ==========================================
+# SPECIFIC LOCAL FILES
+# ==========================================
+.env
+config/local.conf
+docker-compose.override.yml
+
+# ==========================================
+# RUNTIME DATA & LOGS
+# ==========================================
+*.log
+*.dump
+.venv/
+venv/
+ENV/
+
+# ==========================================
+# IDES & TEXT EDITORS
+# ==========================================
+# PyCharm / PhpStorm / JetBrains
+.idea/
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# OS & Temporary Files
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
