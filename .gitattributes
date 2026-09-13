@@ -1,0 +1,26 @@
+# Set default line ending behavior for text files
+# Overrides local core.autocrlf settings to ensure consistent LF line endings
+* text=auto eol=lf
+
+# Declare files that will always have CRLF line endings on checkout.
+*.bat eol=crlf
+
+# Denote all files that are truly binary and should not be modified.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svgz binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+*.pdf binary
+*.xls binary
+*.xlsx binary
+*.docx binary
+*.odt binary
+*.pyc binary
+*.whl binary
