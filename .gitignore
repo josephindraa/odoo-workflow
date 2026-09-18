@@ -2,7 +2,7 @@
 # SPECIFIC LOCAL FILES
 # ==========================================
 .env
-config/local.conf
+config/odoo/local.conf
 docker-compose.override.yml
 
 # ==========================================

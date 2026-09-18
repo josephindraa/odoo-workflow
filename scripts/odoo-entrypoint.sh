@@ -13,7 +13,7 @@ if [ ! -f "$LOCAL_CONF" ]; then
     echo " You can copy the template from 'config/local.example.conf'."
     echo ""
     echo " Command to create manually:"
-    echo "   cp config/local.example.conf config/local.conf"
+    echo "   cp config/odoo/local.example.conf config/odoo/local.conf"
     echo ""
     echo " Once the file is created and values are configured, restart the container."
     echo "========================================================================"

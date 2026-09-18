@@ -9,11 +9,12 @@ services:
     ports:
       - "${HOST_APP_PORT}:8069"
     volumes:
-      - app-data:/var/lib/odoo
-      - ./config:/etc/odoo
+      - ./scripts/odoo-entrypoint.sh:/usr/local/bin/odoo-entrypoint.sh:ro
+      - ./config/odoo:/etc/odoo
       - ./addons:/mnt/extra-addons
       - ./vendor:/mnt/vendor-addons
-    entrypoint: ["/etc/odoo/entrypoint.sh"]
+      - app-data:/var/lib/odoo
+    entrypoint: ["/usr/local/bin/odoo-entrypoint.sh"]
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8069/web/health || exit 1"]
       interval: 10s
