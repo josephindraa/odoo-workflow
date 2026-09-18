@@ -13,6 +13,7 @@ services:
       - ./config:/etc/odoo
       - ./addons:/mnt/extra-addons
       - ./vendor:/mnt/vendor-addons
+    entrypoint: ["/etc/odoo/entrypoint.sh"]
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8069/web/health || exit 1"]
       interval: 10s
