@@ -6,6 +6,19 @@ config/odoo/local.conf
 docker-compose.override.yml
 
 # ==========================================
+# SSL DATA & ACME CHALLENGES
+# ==========================================
+# Certbot (production)
+config/certs/prod/conf/*
+!config/certs/prod/conf/.gitkeep
+config/certs/prod/www/*
+!config/certs/prod/www/.gitkeep
+
+# Mkcert (development)
+config/certs/dev/*
+!config/certs/dev/.gitkeep
+
+# ==========================================
 # RUNTIME DATA & LOGS
 # ==========================================
 *.log

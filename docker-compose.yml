@@ -1,13 +1,36 @@
 name: odoo-workflow
 
 services:
+  webserver:
+    image: nginx:alpine
+    depends_on:
+      app:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - DOMAIN_NAME=${DOMAIN_NAME}
+      - NGINX_ENVSUBST_FILTER=DOMAIN_NAME
+    volumes:
+      - ./config/nginx.conf.template:/etc/nginx/templates/default.conf.template:ro
+      - ./config/certs/prod/conf:/etc/letsencrypt:ro
+      - ./config/certs/prod/www:/var/www/certbot:ro
+    restart: unless-stopped
+
+  certs:
+    image: certbot/certbot:latest
+    volumes:
+      - ./config/certs/prod/conf:/etc/letsencrypt
+      - ./config/certs/prod/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    restart: unless-stopped
+
   app:
     image: odoo:19.0
     depends_on:
       db:
         condition: service_healthy
-    ports:
-      - "${HOST_APP_PORT}:8069"
     volumes:
       - ./scripts/odoo-entrypoint.sh:/usr/local/bin/odoo-entrypoint.sh:ro
       - ./config/odoo:/etc/odoo
@@ -21,6 +44,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 15s
+    restart: unless-stopped
 
   db:
     image: postgres:16-alpine
@@ -35,6 +59,7 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
 
 volumes:
   app-data:
