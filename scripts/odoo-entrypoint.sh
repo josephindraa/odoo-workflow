@@ -20,6 +20,12 @@ if [ ! -f "$LOCAL_CONF" ]; then
     exit 1
 fi
 
-# Run Odoo if local.conf exists
-echo "Loading base configuration ($BASE_CONF) with override ($LOCAL_CONF)..."
-exec odoo -c "$BASE_CONF" -c "$LOCAL_CONF" "$@"
+# Merge & run odoo config
+python3 -c "
+import configparser
+config = configparser.ConfigParser()
+config.read(['$BASE_CONF', '$LOCAL_CONF'])
+with open('/tmp/odoo_merged.conf', 'w') as f:
+    config.write(f)
+"
+exec odoo -c /tmp/odoo_merged.conf "$@"
