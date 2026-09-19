@@ -2,7 +2,6 @@
 ; ==============================================================================
 ; REQUIRED: DATABASE & SMTP SETTINGS
 ; ==============================================================================
-admin_passwd =
 db_host = db
 db_port = 5432
 db_user =
@@ -19,14 +18,10 @@ from_filter =
 ; DATABASE ROUTING & MULTI-TENANCY
 ; ==============================================================================
 ; SECURE BY DEFAULT:
-; `list_db = False` is set by default to prevent exposing the Database Manager
-; (/web/database/manager) or listing databases in Production if misconfigured.
+; - admin_passwd: Replace CHANGE_ME_PASSWORD with a PBKDF2 hash
+; - list_db: Hides Database Manager in production. Set `True` for local dev.
 ;
-; FOR LOCAL DEVELOPMENT:
-; Change `list_db = True` in your active `config/odoo.conf` so you can easily
-; create, switch, backup, or drop databases via the Web UI.
-;
-; Production Guidelines:
+; PRODUCTION GUIDELINES:
 ; 1. Single Database Mode:
 ;    list_db = False
 ;    dbfilter = ^mydb$
@@ -35,6 +30,7 @@ from_filter =
 ;    list_db = False
 ;    dbfilter = ^%d$
 ;    db_name = False
+admin_passwd = CHANGE_ME_PASSWORD
 list_db = False
 dbfilter =
 db_name =
